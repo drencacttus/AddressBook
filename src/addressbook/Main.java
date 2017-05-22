@@ -1,32 +1,24 @@
 package addressbook;
 
+import java.io.File;
+
 public class Main {
     
-    private static final AddressBook addressBook = new AddressBook();
+    private static AddressBook addressBook;
+    private static String objPath = new File("object.dat").getAbsolutePath();
     
     public static void main(String[] args) {
         
-        addressBook.addPerson(new Person("Filan", 
-                                        "Fisteku", 
-                                        "Prishtine", 
-                                        "+342 234 423", 
-                                        "234@efrw.df"));
+        System.out.println(objPath);
         
-        addressBook.addPerson(new Person("Izet", 
-                                        "Belegu", 
-                                        "Prishtine", 
-                                        "+342 234 423", 
-                                        "234@efrw.df"));
-        
-        addressBook.addPerson(new Person("Rexhep", 
-                                        "Mala", 
-                                        "Prishtine", 
-                                        "+342 234 423", 
-                                        "234@efrw.df"));
-        
+        addressBook = AddressBook.LoadFromFile(objPath);
+ 
+        if(addressBook == null)
+            addressBook = new AddressBook(objPath);
         
         MainWindow mainWindow = new MainWindow();
         mainWindow.setAddressBook(addressBook);
+        
         mainWindow.setVisible(true);
     }
 }
